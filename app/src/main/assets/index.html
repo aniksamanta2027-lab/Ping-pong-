@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <style>
+        body { margin: 0; overflow: hidden; background: #1a1a2e; color: #fff; font-family: sans-serif; text-align: center; user-select: none; }
+        #scoreBoard { font-size: 24px; padding: 15px; background: #16213e; font-weight: bold; }
+        #gameArea { position: relative; width: 100vw; height: calc(100vh - 60px); }
+        #target { position: absolute; width: 65px; height: 65px; background: #e94560; border-radius: 50%; box-shadow: 0 0 15px #e94560; transition: 0.1s; }
+    </style>
+</head>
+<body>
+    <div id="scoreBoard">স্কোর: <span id="score">0</span></div>
+    <div id="gameArea">
+        <div id="target" ontouchstart="hitTarget(event)" onclick="hitTarget(event)"></div>
+    </div>
+
+    <script>
+        let score = 0;
+        const target = document.getElementById('target');
+        const scoreDisplay = document.getElementById('score');
+        const gameArea = document.getElementById('gameArea');
+
+        function moveTarget() {
+            const maxX = gameArea.clientWidth - 70;
+            const maxY = gameArea.clientHeight - 70;
+            target.style.left = Math.max(10, Math.floor(Math.random() * maxX)) + 'px';
+            target.style.top = Math.max(10, Math.floor(Math.random() * maxY)) + 'px';
+        }
+
+        function hitTarget(e) {
+            e.preventDefault();
+            score++;
+            scoreDisplay.innerText = score;
+            moveTarget();
+        }
+
+        setInterval(moveTarget, 1100);
+        window.onload = moveTarget;
+    </script>
+</body>
+</html>
